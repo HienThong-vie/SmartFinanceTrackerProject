@@ -3,7 +3,9 @@ import json
 import uuid
 #from utils.today import get_today_string
 from datetime import datetime
-DATA_FILE = "data/transactions.json" #this is a constant vaiable, it written in ALL_CAPS and we can not change this variable
+# DATA_FILE ennsuring build the correct path regardless of where Python is run from
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+DATA_FILE = os.path.join(BASE_DIR, "data", "transactions.json") #this is a constant vaiable, it written in ALL_CAPS and we can not change this variable
 def load_data(): 
     if os.path.exists(DATA_FILE):
         with open(DATA_FILE, "r") as data_file:
@@ -27,7 +29,7 @@ def save_data(data):
     with open(DATA_FILE, "w") as data_file:
         json.dump(data, data_file, indent=4) # it save data of parameter data locates in data_file
 
-#the third param in saveData is just for spacing for each level ->  make the ouput look cleaner, 4 is standard
+#the third parameter in saveData is just for spacing for each level ->  make the ouput look cleaner, 4 is standard
 
 def add_transaction(data,amount,transaction_type,category,note):
     transaction_id = str(uuid.uuid4())

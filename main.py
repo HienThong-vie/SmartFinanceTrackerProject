@@ -2,6 +2,7 @@ from core.data_manager import load_data
 import tkinter as tk
 import ctypes
 from constants import COLORS
+from gui.transactions import build_transactions_page
 def show_frame(frame):
     frame.tkraise()
 
@@ -10,7 +11,7 @@ ctypes.windll.user32.SetProcessDPIAware() #this tells Windows to render the app 
 def main():
     data = load_data()  
     root = tk.Tk()
-    root.state("zoomed") #this opens the app maximized which is a great UX improvement, and we dont need geometry method no more
+    root.geometry("1200x900") #this opens the app maximized which is a great UX improvement, and we dont need geometry method no more
     root.title("Smart Finance Tracker")
     #creating widgets is like buying furniture 
     
@@ -77,6 +78,7 @@ def main():
     sidebar_frame.pack(side="right",fill="y")
     sidebar_frame.pack_propagate(False) # this tell the frame to respect the width, not resizing the size based on its content
     sidebar_label.pack(fill="x")
+    
     for button, command in nav_buttons:
         btn = tk.Button (  # the tk.Button has default event as "click"
             sidebar_frame,
@@ -98,7 +100,7 @@ def main():
         btn.bind("<Leave>",lambda e, b=btn: b.config(bg=COLORS["bg_sidebar"]))
         # explaination for this bind() section is in the document 
 
-
+    build_transactions_page(transactions_frame,data)
     root.mainloop() 
 
 if __name__ == "__main__":
