@@ -1,20 +1,23 @@
 from core.data_manager import load_data
 import tkinter as tk
-import ctypes
 from constants import COLORS
 from gui.transactions import build_transactions_page
+try:
+    from ctypes import windll
+    windll.shcore.SetProcessDpiAwareness(1)
+except:
+    pass
+
 def show_frame(frame):
     frame.tkraise()
-
-ctypes.windll.user32.SetProcessDPIAware() #this tells Windows to render the app at full DPI resolution
 
 def main():
     data = load_data()  
     root = tk.Tk()
-    root.geometry("1200x900") #this opens the app maximized which is a great UX improvement, and we dont need geometry method no more
+    root.state("zoomed")
     root.title("Smart Finance Tracker")
+
     #creating widgets is like buying furniture 
-    
     content_frame = tk.Frame(
         root,
         bg = COLORS["bg_main"]
