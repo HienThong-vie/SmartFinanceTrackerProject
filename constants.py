@@ -16,7 +16,7 @@ COLORS = {
     # Status colors
     "status_ok":       "#ccf0d4",  # soft green
     "status_warning":  "#fff3cc",  # soft yellow
-    "status_exceeded": "#ffcccc",  # soft red
+    "status_exceeded": "#ee4343",  # soft red
     
     # Border
     "border": "#e0d9d0",  # warm light grey border

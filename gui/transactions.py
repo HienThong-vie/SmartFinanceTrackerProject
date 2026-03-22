@@ -12,11 +12,51 @@ from core.data_manager import (
     save_data
 )
 def build_transactions_page(frame, data):
+    def edit_selected():
+        selected_row = transaction_history.selection()
+        if selected_row:
+            values = transaction_history.item(selected_row[0])["values"]
+        else:
+            return
+        transaction_id = values[0]
+        date = values[1]
+        transaction_type = values[2]
+        category = values[3]
+        amount = values[4]
+        note = values[5]
+
+        amount_entry.delete(0,tk.END)
+        note_entry.delete(0,tk.END)
+        date_entry.delete(0,tk.END)
+
+        date_entry.insert(0,date)
+        type_combobox.set(transaction_type)
+        category_combobox.set(category)
+        amount_entry.insert(0,amount)
+        note_entry.insert(0,note)
+
+        name_var.set("Update Transaction")
+        edit_id.set(transaction_id)
+
+        
+    def delete_selected():
+        selected_row = transaction_history.selection() # this return the id of a row 
+        if selected_row:
+            values = transaction_history.item(selected_row[0])["values"]
+        else:
+            return 
+        transaction_id = values[0]
+
+        delete_transaction(transaction_id,data)
+        refresh_table()
+
+    # this function, check the transactions data to see any changes then print data on page again
     def refresh_table():
         transaction_history.delete(*transaction_history.get_children()) # this delete all children widget (columns) inside a tree widget
         transactions = get_transaction(data) # we need to loop through this dict to find all transaction category
         for transaction in transactions:
             transaction_history.insert("",tk.END,values=(
+                transaction["id"],
                 transaction["time"],
                 transaction["type"],
                 transaction["category"],
@@ -30,11 +70,25 @@ def build_transactions_page(frame, data):
         except: # if not integer, return imidiatly without crashing
             return 
         category = category_combobox.get()
-        transaction_type = type_combobox.get()
+        type = type_combobox.get()
         note = note_entry.get()
+        current_id = edit_id.get()
+        time = date_entry.get()
+        updated_field = {
+            "amount":amount,
+            "type":type,
+            "category":category,
+            "note":note,
+            "time":time
+            }
+        
+        if current_id:
+            edit_transaction(data,current_id,updated_field)
+        else:
+            add_transaction(data,amount,type,category,note)
 
-        add_transaction(data,amount,transaction_type,category,note)
-
+        name_var.set("➕ Add Transaction")
+        edit_id.set("")
         delete_fields()
         refresh_table()
 
@@ -110,10 +164,14 @@ def build_transactions_page(frame, data):
     note_entry = tk.Entry(
         form_frame,
     )
+    name_var = tk.StringVar()
+    edit_id = tk.StringVar()
+    edit_id.set("")
+    name_var.set("➕ Add Transaction")
     sumit_button = tk.Button(
         form_frame,
         command=submit_transaction,
-        text="➕ Add Transaction",
+        textvariable=name_var,
         bg=COLORS["accent"],
         fg=COLORS["text_light"],
         font=("Segoe UI", 10, "bold"),
@@ -121,6 +179,30 @@ def build_transactions_page(frame, data):
         cursor="hand2"
     )
     """done transaction section"""
+    controls_frame = tk.Frame(
+        frame,
+    )
+    delete_button = tk.Button(
+        controls_frame,
+        command = delete_selected,
+        text = "🗑️ Delete",
+        bg=COLORS["status_exceeded"],
+        fg=COLORS["text_light"],
+        font=("Segoe UI", 10,"bold"),
+        border=0,
+        cursor="hand2",
+    )
+    edit_button = tk.Button(
+        controls_frame,
+        command=edit_selected,
+        text = "✏️ Edit",
+        bg=COLORS["accent"],
+        fg=COLORS["text_light"],
+        font=("Segoe UI", 10,"bold"),
+        border=0,
+        cursor="hand2"
+    )
+
     history_frame = tk.LabelFrame(
         frame,
         text="TRANSACTION HISTORY",
@@ -130,7 +212,7 @@ def build_transactions_page(frame, data):
     )
     transaction_history = ttk.Treeview (
         history_frame,
-        columns = ("date","type","category","amount","note"),
+        columns = ("id","date","type","category","amount","note"),
         show="headings"
     )
     transaction_history_scrollbar = ttk.Scrollbar(
@@ -141,15 +223,17 @@ def build_transactions_page(frame, data):
     #ttk widget need style() to styling them
     style = ttk.Style()
     style.configure("Treeview",rowheight=50,font=("Segoe UI", 10))
-    style.configure("Treeview.Heading", font=("Segoe UI", 10, "bold"))
+    style.configure("Treeview.Heading", font=("Segoe UI", 10))
     transaction_history.configure(yscrollcommand=transaction_history_scrollbar.set)
     # define column heading
+    transaction_history.heading("id",text="")
     transaction_history.heading("date", text="Date")
     transaction_history.heading("type", text="Type")
     transaction_history.heading("category", text="Category")
     transaction_history.heading("amount", text="Amount")
     transaction_history.heading("note", text="Note")
     # defind column width
+    transaction_history.column("id",width=0,minwidth=0)
     transaction_history.column("date", width=90,minwidth=80, anchor="center")
     transaction_history.column("type", width=80,minwidth=70, anchor="center")
     transaction_history.column("category", width=90,minwidth=80, anchor="center")
@@ -177,10 +261,14 @@ def build_transactions_page(frame, data):
     sumit_button.grid(row=5, column=1,sticky="e",pady=10)
 
     form_frame.columnconfigure(1, weight=1)
+    # controls frame section
+    controls_frame.pack(fill="x",padx=20,pady=5)
+    delete_button.pack(side="right",padx=5)
+    edit_button.pack(side="right",padx=5)
     # history frame section
-    history_frame.pack(fill="both",expand=True,padx=20,pady=10)
+    history_frame.pack(expand=True,padx=20,pady=10)
     transaction_history_scrollbar.pack(side="right", fill="y")# we need to fill both because this frame will take all the remaining page of screen, leaving no blank space
     transaction_history.pack(fill="both",expand=True,padx=10,pady=10)
 
-    refresh_table()
+    refresh_table() #this generate fresh start to our program whenever we run it
     

@@ -4,7 +4,7 @@ from constants import COLORS
 from gui.transactions import build_transactions_page
 try:
     from ctypes import windll
-    windll.shcore.SetProcessDpiAwareness(1)
+    windll.shcore.SetProcessDpiAwarenesreallys(1)
 except:
     pass
 
@@ -14,7 +14,8 @@ def show_frame(frame):
 def main():
     data = load_data()  
     root = tk.Tk()
-    root.state("zoomed")
+    #root.state("zoomed")
+    root.geometry("800x600")
     root.title("Smart Finance Tracker")
 
     #creating widgets is like buying furniture 
@@ -46,7 +47,7 @@ def main():
     sidebar_frame = tk.Frame(
         root,
         bg = COLORS["bg_sidebar"],
-        width = 300
+        width = 200
     )
     sidebar_label = tk.Label(
         sidebar_frame,
