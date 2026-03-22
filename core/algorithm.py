@@ -46,6 +46,8 @@ def analyze_budgets(data):
             status = "exceeded"
         elif used_percentage >= 80:
             status = "warning"
+        elif used_percentage >= 60:
+            status = "caution"
         else:
             status = "acceptable"
 
@@ -70,7 +72,9 @@ def generate_advice(data):
         if status == "exceeded":
             advices.append(f"🔴 Alert: You have exceeded your {result} budget this {period}!")
         elif status == "warning":
-            advices.append(f"⚠️ Warning: You have used {used_percentage} of your {result} budget this {period}!")
+            advices.append(f"⚠️ Warning: You have used {used_percentage}% of your {result} budget this {period}!")
+        elif status == "caution":
+            advices.append(f"🟡 Caution! You have used {used_percentage}% of your {result} this {period}.")
         else:
             advices.append(f"✅ Great job! You are on track with {result}.")
     return advices

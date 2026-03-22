@@ -99,6 +99,13 @@ def build_transactions_page(frame, data):
         note_entry.delete(0,tk.END)
 
     # widgets section
+    page_title = tk.Label(
+        frame,
+        text = "💸 Transactions",
+        bg=COLORS["bg_main"],
+        fg=COLORS["text_primary"],
+        font = ("Segoe UI", 18, "bold")
+    )
     form_frame = tk.LabelFrame( # LabelFrame create a form with visible border
         frame,
         text="ADD TRANSACTION",
@@ -168,7 +175,7 @@ def build_transactions_page(frame, data):
     edit_id = tk.StringVar()
     edit_id.set("")
     name_var.set("➕ Add Transaction")
-    sumit_button = tk.Button(
+    submit_button = tk.Button(
         form_frame,
         command=submit_transaction,
         textvariable=name_var,
@@ -176,11 +183,13 @@ def build_transactions_page(frame, data):
         fg=COLORS["text_light"],
         font=("Segoe UI", 10, "bold"),
         border=0,
-        cursor="hand2"
+        cursor="hand2",
+        width=20
     )
     """done transaction section"""
     controls_frame = tk.Frame(
         frame,
+        bg = COLORS["bg_main"]
     )
     delete_button = tk.Button(
         controls_frame,
@@ -191,6 +200,7 @@ def build_transactions_page(frame, data):
         font=("Segoe UI", 10,"bold"),
         border=0,
         cursor="hand2",
+        width=13
     )
     edit_button = tk.Button(
         controls_frame,
@@ -200,7 +210,8 @@ def build_transactions_page(frame, data):
         fg=COLORS["text_light"],
         font=("Segoe UI", 10,"bold"),
         border=0,
-        cursor="hand2"
+        cursor="hand2",
+        width=7
     )
 
     history_frame = tk.LabelFrame(
@@ -233,7 +244,7 @@ def build_transactions_page(frame, data):
     transaction_history.heading("amount", text="Amount")
     transaction_history.heading("note", text="Note")
     # defind column width
-    transaction_history.column("id",width=0,minwidth=0)
+    transaction_history.column("id",width=0,stretch=False)
     transaction_history.column("date", width=90,minwidth=80, anchor="center")
     transaction_history.column("type", width=80,minwidth=70, anchor="center")
     transaction_history.column("category", width=90,minwidth=80, anchor="center")
@@ -241,6 +252,7 @@ def build_transactions_page(frame, data):
     transaction_history.column("note", width=150,minwidth=100, anchor="w",stretch=tk.YES)
     # insert a row 
     # transaction frame section
+    page_title.pack(anchor="w",padx=20,pady=15)
     form_frame.pack(fill="x", padx=20, pady=10) # we dont add fill both here because this frame have fixed height created by all the widget inside this frame
 
     amount_label.grid(row=0, column=0, sticky="w",pady=5)
@@ -258,7 +270,7 @@ def build_transactions_page(frame, data):
     note_label.grid(row=4, column=0, sticky="w",pady=5)
     note_entry.grid(row=4, column=1, sticky="ew",padx=20,pady=5)
 
-    sumit_button.grid(row=5, column=1,sticky="e",pady=10)
+    submit_button.grid(row=5, column=1,sticky="e",pady=10)
 
     form_frame.columnconfigure(1, weight=1)
     # controls frame section
@@ -266,7 +278,7 @@ def build_transactions_page(frame, data):
     delete_button.pack(side="right",padx=5)
     edit_button.pack(side="right",padx=5)
     # history frame section
-    history_frame.pack(expand=True,padx=20,pady=10)
+    history_frame.pack(fill="both",expand=True,padx=20,pady=10)
     transaction_history_scrollbar.pack(side="right", fill="y")# we need to fill both because this frame will take all the remaining page of screen, leaving no blank space
     transaction_history.pack(fill="both",expand=True,padx=10,pady=10)
 

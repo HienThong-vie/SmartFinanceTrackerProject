@@ -2,20 +2,26 @@ from core.data_manager import load_data
 import tkinter as tk
 from constants import COLORS
 from gui.transactions import build_transactions_page
+from gui.dashboard import build_dashboard_page
+from gui.budget import build_budget_page
+from ctypes import windll
 try:
-    from ctypes import windll
-    windll.shcore.SetProcessDpiAwarenesreallys(1)
+    windll.shcore.SetProcessDpiAwareness(1)
 except:
     pass
 
-def show_frame(frame):
+def show_frame(frame,rebuild=None):
     frame.tkraise()
+    if rebuild is not None:
+        for widget in frame.winfo_children():
+            widget.destroy()
+        rebuild()
 
 def main():
     data = load_data()  
     root = tk.Tk()
-    #root.state("zoomed")
-    root.geometry("800x600")
+    root.geometry("1800x1200")
+
     root.title("Smart Finance Tracker")
 
     #creating widgets is like buying furniture 
@@ -58,9 +64,9 @@ def main():
         pady = 30
     )
     nav_buttons = [
-        ("📊 Dashboard",lambda:show_frame(dashboard_frame)),
+        ("📊 Dashboard",lambda:show_frame(dashboard_frame,lambda: build_dashboard_page(dashboard_frame,data))),
         ("💸 Transactions",lambda:show_frame(transactions_frame)),
-        ("🎯 Budgets",lambda:show_frame(budget_frame)),
+        ("🎯 Budgets",lambda:show_frame(budget_frame,lambda: build_budget_page(budget_frame,data))),
         ("📈 Charts",lambda:show_frame(charts_frame)),
         ("🤖 Advisor",lambda:show_frame(advisor_frame))
     ]
@@ -77,12 +83,10 @@ def main():
     budget_frame.place(relx=0, rely=0, relwidth=1, relheight=1)
     charts_frame.place(relx=0, rely=0, relwidth=1, relheight=1)
     advisor_frame.place(relx=0, rely=0, relwidth=1, relheight=1)
-    show_frame(dashboard_frame)
+    show_frame(dashboard_frame,build_dashboard_page(dashboard_frame,data))
 
     sidebar_frame.pack(side="right",fill="y")
-    sidebar_frame.pack_propagate(False) # this tell the frame to respect the width, not resizing the size based on its content
     sidebar_label.pack(fill="x")
-    
     for button, command in nav_buttons:
         btn = tk.Button (  # the tk.Button has default event as "click"
             sidebar_frame,
@@ -97,13 +101,13 @@ def main():
             padx = 50,
             pady = 20
         )
-        
+       
+
         btn.pack(fill="x")
         
         btn.bind("<Enter>",lambda e, b=btn: b.config(bg=COLORS["accent"])) # Enter is a event so we have to add <>
         btn.bind("<Leave>",lambda e, b=btn: b.config(bg=COLORS["bg_sidebar"]))
         # explaination for this bind() section is in the document 
-
     build_transactions_page(transactions_frame,data)
     root.mainloop() 
 
