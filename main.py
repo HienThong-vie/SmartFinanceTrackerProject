@@ -22,7 +22,7 @@ def show_frame(frame,rebuild=None):
 def main():
     data = load_data()  
     root = tk.Tk()
-    root.geometry("1800x1200")
+    root.minsize(1800,1200)
 
     root.title("Smart Finance Tracker")
 
@@ -67,7 +67,7 @@ def main():
     )
     nav_buttons = [
         ("📊 Dashboard",lambda:show_frame(dashboard_frame,lambda: build_dashboard_page(dashboard_frame,data))),
-        ("💸 Transactions",lambda:show_frame(transactions_frame)),
+        ("💸 Transactions",lambda:show_frame(transactions_frame)), # this page refresh internally
         ("🎯 Budgets",lambda:show_frame(budget_frame,lambda: build_budget_page(budget_frame,data))),
         ("📈 Charts",lambda:show_frame(charts_frame,lambda: build_chart_page(charts_frame,data))),
         ("🤖 Advisor",lambda:show_frame(advisor_frame, lambda: build_advisor_page(advisor_frame,data)))
@@ -113,17 +113,16 @@ def main():
     build_transactions_page(transactions_frame,data)
 
     #close shortcut
-    def close_shortcut(event=None):
+    
+    def close_program(event=None):
         try:
             root.destroy()
         except:
             pass
-    
-    root.bind("<Control-e>",close_shortcut)
-        
+    root.bind("<Control-e>",close_program)
     root.mainloop() 
-    close_shortcut()
-
+    close_program()
+    
 if __name__ == "__main__":
     main()
     

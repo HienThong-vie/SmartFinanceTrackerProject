@@ -15,11 +15,3 @@ for budget in budgets:
 list_1 = ["noname1","noname2","noname3"]
 list_2 = ["name1","name2","name3"]
 
-for item in list_1:
-    tested_labelframe = tk.LabelFrame(
-        parent,
-        text = "list_1",
-        bg = None,
-        fg = None,
-        values = item
-    )

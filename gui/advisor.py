@@ -8,11 +8,15 @@ def build_advisor_page(frame,data):
     def show_all():
         ungroup_label.pack(anchor="w", padx=20, pady=15)
         ungroup_frame.pack(fill="x", padx=20, pady=10)
+        showall_button.configure(bg=COLORS["accent"])
+        showgroup_button.configure(bg=COLORS["bg_sidebar"])
         grouped_label.pack_forget()
         grouped_frame.pack_forget()
     def show_group():
         grouped_label.pack(anchor="w", padx=20, pady=15)
         grouped_frame.pack(fill="x", padx=20, pady=10)
+        showgroup_button.configure(bg=COLORS["accent"])
+        showall_button.configure(bg=COLORS["bg_sidebar"])
         ungroup_label.pack_forget()
         ungroup_frame.pack_forget()
 
@@ -26,35 +30,37 @@ def build_advisor_page(frame,data):
         fg=COLORS["text_primary"],
         font = ("Segoe UI", 18, "bold")
     )
-    control_frame = tk.Frame(
+    controls_frame = tk.Frame(
         frame,
         bg = COLORS["bg_main"]   
     )
     showall_button = tk.Button(
-        control_frame,
+        controls_frame,
         command = show_all,
         text = "🌐 Show All",
         bg=COLORS["accent"],
         fg=COLORS["text_light"],
         font=("Segoe UI", 10,"bold"),
-        border=0,
         cursor="hand2",
     )
     showgroup_button = tk.Button(
-        control_frame,
+        controls_frame,
         command = show_group,
         text = "📚 Show Group",
         bg=COLORS["accent"],
         fg=COLORS["text_light"],
         font=("Segoe UI", 10,"bold"),
-        border=0,
         cursor="hand2",
     )
 
     page_title.pack(anchor="w",padx=20,pady=15)
-    control_frame.pack(fill="x",padx=20,pady=5)
-    showall_button.pack(side="left",padx=10,pady=10)
-    showgroup_button.pack(side="left",padx=10,pady=10)
+    controls_frame.pack(fill="x",padx=20,pady=5)
+
+    showall_button.grid(row=0,column=0,sticky="ew",padx=10)
+    showgroup_button.grid(row=0,column=1,sticky="ew",padx=10)
+
+    controls_frame.columnconfigure(0, weight=1)
+    controls_frame.columnconfigure(1, weight=1)
     
 
     #ungroup advices section 

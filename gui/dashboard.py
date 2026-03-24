@@ -60,7 +60,9 @@ def build_dashboard_page(frame,data):
     for index, (title,amount,color) in enumerate(cards): #enumerate gets the position number storing inside index
         card = tk.Frame(
             card_frame,
-            bg = color
+            bg = color,
+            relief="solid",
+            bd=2
         )
         title_label = tk.Label(
             card,
