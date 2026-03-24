@@ -57,7 +57,8 @@ def analyze_budgets(data):
             "remaining":remaining,
             "used_percentage":used_percentage,
             "remaining_percentage":remaining_percentage,
-            "status":status}
+            "status":status
+            }
     return result 
 
 def generate_advice(data):

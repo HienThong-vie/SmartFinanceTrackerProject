@@ -1,6 +1,6 @@
 import tkinter as tk
 import tkinter.ttk as ttk
-from constants import COLORS
+from colors_scheme import COLORS
 from datetime import datetime
 from core.data_manager import (
     get_transaction,

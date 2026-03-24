@@ -1,6 +1,6 @@
 import tkinter as tk
 import tkinter.ttk as ttk
-from constants import COLORS
+from colors_scheme import COLORS
 from datetime import datetime
 from core.data_manager import (
     get_transaction,
@@ -29,6 +29,7 @@ def build_dashboard_page(frame,data):
     card_frame = tk.Frame(
         frame,
         bg=COLORS["bg_main"],
+        relief="solid"
     )
     cards = [
           ("💰 Total Income",total_income,COLORS["status_acceptable"]),

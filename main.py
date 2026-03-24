@@ -1,9 +1,11 @@
 from core.data_manager import load_data
 import tkinter as tk
-from constants import COLORS
+from colors_scheme import COLORS
 from gui.transactions import build_transactions_page
 from gui.dashboard import build_dashboard_page
 from gui.budget import build_budget_page
+from gui.advisor import build_advisor_page
+from gui.charts import build_chart_page
 from ctypes import windll
 try:
     windll.shcore.SetProcessDpiAwareness(1)
@@ -67,8 +69,8 @@ def main():
         ("📊 Dashboard",lambda:show_frame(dashboard_frame,lambda: build_dashboard_page(dashboard_frame,data))),
         ("💸 Transactions",lambda:show_frame(transactions_frame)),
         ("🎯 Budgets",lambda:show_frame(budget_frame,lambda: build_budget_page(budget_frame,data))),
-        ("📈 Charts",lambda:show_frame(charts_frame)),
-        ("🤖 Advisor",lambda:show_frame(advisor_frame))
+        ("📈 Charts",lambda:show_frame(charts_frame,lambda: build_chart_page(charts_frame,data))),
+        ("🤖 Advisor",lambda:show_frame(advisor_frame, lambda: build_advisor_page(advisor_frame,data)))
     ]
     """
     fill="both" — stretches to fill available space in both directions
@@ -109,7 +111,18 @@ def main():
         btn.bind("<Leave>",lambda e, b=btn: b.config(bg=COLORS["bg_sidebar"]))
         # explaination for this bind() section is in the document 
     build_transactions_page(transactions_frame,data)
+
+    #close shortcut
+    def close_shortcut(event=None):
+        try:
+            root.destroy()
+        except:
+            pass
+    
+    root.bind("<Control-e>",close_shortcut)
+        
     root.mainloop() 
+    close_shortcut()
 
 if __name__ == "__main__":
     main()

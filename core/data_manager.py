@@ -77,7 +77,7 @@ def get_transaction(data,search_query=None,sort_by="time",ascending=True):
                 or search_query in transaction["category"].lower()
                 or search_query in str(transaction["amount"])
             ]
-    transactions = sorted(transactions, key = lambda x: x[sort_by], reverse= not ascending)
+    transactions = sorted(transactions, key = lambda x: x[sort_by], reverse= not ascending) # must 
     return transactions
 # sort_by="time" by default make all transaction shows synchronously 
 # we will use list comprehension to build list as a compact way

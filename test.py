@@ -1,5 +1,5 @@
+import tkinter as tk 
 test_list = [1,2,3]
-
 mutiply_by_two = [n for n in test_list]
 
 print(mutiply_by_two)
@@ -12,3 +12,14 @@ budgets = {
 for budget in budgets:
     print(budgets[budget]["limit"])
     
+list_1 = ["noname1","noname2","noname3"]
+list_2 = ["name1","name2","name3"]
+
+for item in list_1:
+    tested_labelframe = tk.LabelFrame(
+        parent,
+        text = "list_1",
+        bg = None,
+        fg = None,
+        values = item
+    )
