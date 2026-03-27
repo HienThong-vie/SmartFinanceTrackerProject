@@ -103,7 +103,6 @@ def main():
             padx = 50,
             pady = 20
         )
-       
 
         btn.pack(fill="x")
         
@@ -115,14 +114,11 @@ def main():
     #close shortcut
     
     def close_program(event=None):
-        try:
-            root.destroy()
-        except:
-            pass
+        root.destroy()
+
     root.bind("<Control-e>",close_program)
+
     root.mainloop() 
-    close_program()
-    
 if __name__ == "__main__":
     main()
     
