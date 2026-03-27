@@ -12,6 +12,28 @@ from core.data_manager import (
     save_data
 )
 def build_transactions_page(frame, data):
+    def search_and_sort():
+        search_item = search_var.get().lower()
+        sort_item = sort_combobox.get()
+        sort_map= {
+            "Date" : "time",
+            "Amount" : "amount",
+            "Category" : "category",
+            "Type" : "type"
+        }  # this sort_map translate into readable data for get_transactions()
+        sort_key = sort_map.get(sort_item,"time")
+        transactions = get_transaction(data,search_item,sort_key)
+        transaction_history.delete(*transaction_history.get_children()) # this delete all children widget (columns) inside a tree widget
+        for transaction in transactions:
+            transaction_history.insert("",tk.END,values=(
+                transaction["id"],
+                transaction["time"],
+                transaction["type"],
+                transaction["category"],
+                transaction["amount"],
+                transaction["note"]
+            ))
+
     def edit_selected():
         selected_row = transaction_history.selection()
         if selected_row:
@@ -52,17 +74,7 @@ def build_transactions_page(frame, data):
 
     # this function, check the transactions data to see any changes then print data on page again
     def refresh_table():
-        transaction_history.delete(*transaction_history.get_children()) # this delete all children widget (columns) inside a tree widget
-        transactions = get_transaction(data) # we need to loop through this dict to find all transaction category
-        for transaction in transactions:
-            transaction_history.insert("",tk.END,values=(
-                transaction["id"],
-                transaction["time"],
-                transaction["type"],
-                transaction["category"],
-                transaction["amount"],
-                transaction["note"]
-            ))
+        search_and_sort()
 
     def submit_transaction():
         try: # we try the input to make sure it is an integer first
@@ -182,7 +194,8 @@ def build_transactions_page(frame, data):
         bg=COLORS["accent"],
         fg=COLORS["text_light"],
         font=("Segoe UI", 10, "bold"),
-        border=0,
+        relief="solid",
+        bd=1,
         cursor="hand2",
         width=20
     )
@@ -198,7 +211,8 @@ def build_transactions_page(frame, data):
         bg=COLORS["status_exceeded"],
         fg=COLORS["text_light"],
         font=("Segoe UI", 10,"bold"),
-        border=0,
+        relief="solid",
+        bd=1,
         cursor="hand2",
         width=13
     )
@@ -209,11 +223,44 @@ def build_transactions_page(frame, data):
         bg=COLORS["accent"],
         fg=COLORS["text_light"],
         font=("Segoe UI", 10,"bold"),
-        border=0,
+        relief="solid",
+        bd=1,
         cursor="hand2",
         width=7
     )
-
+    #done controls frame
+    search_frame = tk.Frame(
+        frame,
+        bg=COLORS["bg_main"]
+    )
+    search_label = tk.Label(
+        search_frame,
+        text="Search:",
+        font=("Segoe UI", 10),
+        bg=COLORS["bg_main"],
+        fg=COLORS["text_primary"]
+    )
+    search_var = tk.StringVar()
+    search_var.set("")
+    search_bar = tk.Entry(
+        search_frame,
+        textvariable=search_var,
+        relief="solid",
+        bd=1
+    )
+    sort_label = tk.Label(
+        search_frame,
+        text="Sort by:",
+        font=("Segoe UI", 10),
+        bg=COLORS["bg_main"],
+        fg=COLORS["text_primary"]
+    )
+    sort_combobox = ttk.Combobox(
+        search_frame,
+        values = ["Date","Amount","Category","Type"],
+        state="readonly"
+    )
+    #done search frame
     history_frame = tk.LabelFrame(
         frame,
         text="TRANSACTION HISTORY",
@@ -277,6 +324,15 @@ def build_transactions_page(frame, data):
     controls_frame.pack(fill="x",padx=20,pady=5)
     delete_button.pack(side="right",padx=5)
     edit_button.pack(side="right",padx=5)
+    # search frame section
+    search_frame.pack(fill="x",padx=20,pady=10)
+    search_label.pack(side="left",fill="x")
+    search_bar.pack(side="left",fill="x",expand=True,padx=10)
+    sort_label.pack(side="left",fill="x")
+    sort_combobox.pack(side="right",fill="x",padx=10)
+
+    search_var.trace_add("write", lambda *args: search_and_sort()) # this line means update wheever user type something
+    sort_combobox.bind("<<ComboboxSelected>>", lambda e: search_and_sort()) # this line update the transactions history base on the selected category inside the combobox
     # history frame section
     history_frame.pack(fill="both",expand=True,padx=20,pady=10)
     transaction_history_scrollbar.pack(side="right", fill="y")# we need to fill both because this frame will take all the remaining page of screen, leaving no blank space

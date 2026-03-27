@@ -65,7 +65,7 @@ def edit_transaction(data,transaction_id,updated_field):
 
 #.update() helps update the dict and keep everything untouch
 
-def get_transaction(data,search_query=None,sort_by="time",ascending=True):
+def get_transaction(data,search_query=None,sort_by="time",ascending=False):
     transactions =  data["transactions"]
     if search_query is not None:
         search_query = search_query.lower()
