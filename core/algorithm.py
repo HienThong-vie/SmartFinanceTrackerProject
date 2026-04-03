@@ -4,7 +4,7 @@ def get_spending_by_category(transactions, budgets):
     spending = {}
     for transaction in transactions:
         if transaction["type"] == "expense" and transaction["category"] in budgets:
-            category = transaction["category"] 
+            category = transaction["category"]
             if transaction["category"] not in spending:
                 spending[category] = 0
             spending[category] += transaction["amount"]
@@ -13,12 +13,19 @@ def get_spending_by_category(transactions, budgets):
 # dont add break for this loop because we want to loop through all the transactions not one
 
 def get_period_transaction(transactions, budget, category):
-    start_date = datetime.strptime(budget[category]["start_date"], "%Y-%m-%d")
+    period = budget[category]["period"]
+    today = datetime.now()
+    #get monday of the current week 
+    if period == "week":
+        period_start = today - timedelta(days=today.weekday())
+    #get the first day of the current month
+    elif period == "month":
+        period_start = today.replace(day=1)
     transactions = [
         transaction for transaction in transactions
         if transaction["category"] == category
         and transaction["type"] == "expense"
-        and datetime.strptime(transaction["time"], "%Y-%m-%d") >= start_date
+        and datetime.strptime(transaction["time"], "%Y-%m-%d").date() >= period_start.date() #.date() filter the time componentas
     ]
     return transactions
 # This function filters transactions to only those within the current budget period for a specific category.
@@ -79,3 +86,38 @@ def generate_advice(data):
         else:
             advices.append(f"✅ Great job! You are on track with {result}.")
     return advices
+# NEED FURTHER INVESTIGATION
+def merge(left,right,key,reverse=False):
+    result = []
+    i = 0
+    j = 0
+    while i < len(left) and j < len(right):
+        condition = left[i][key] <= right[j][key] if not reverse else left[i][key] >= right[j][key]
+        if condition:
+            result.append(left[i])
+            i += 1
+        else:
+            result.append(right[j])
+            j += 1
+
+    result += left[i:]
+    result += right[j:]
+    return result       
+
+def merge_sort(list,key=None,reverse=False):
+    if len(list) <= 1: # validate len(list)
+        return list
+    else:
+        mid = len(list) // 2 # split the list in half
+    # divide into left and right section 
+    left_section = []
+    right_section = []
+    for i in range(len(list)): #check test.py for the example
+        if i < mid:
+            left_section.append(list[i])
+        else:
+            right_section.append(list[i])    
+    left_section = merge_sort(left_section,key,reverse)
+    right_section = merge_sort(right_section,key,reverse)
+    return merge(left_section, right_section, key, reverse)
+    

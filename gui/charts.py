@@ -5,7 +5,7 @@ import tkinter as tk
 import tkinter.ttk as ttk
 from colors_scheme import COLORS
 from core.data_manager import get_transaction
-from core.algorithm import analyze_budgets
+from core.algorithm import analyze_budgets,merge_sort
 from datetime import datetime
 
 def build_chart_page(frame,data):
@@ -226,7 +226,7 @@ def build_chart_page(frame,data):
                     monthly[month] = {"income": 0, "expense": 0}
                 monthly[month][transaction["type"]] += transaction["amount"]
             # sort by month 
-            monthly = dict(sorted(monthly.items()))
+            monthly = dict(merge_sort(monthly.items()))
 
             fig, ax = plt.subplots(figsize=(8, 5))
             months = []

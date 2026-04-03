@@ -142,7 +142,8 @@ def build_budget_page(frame,data):
         bg=COLORS["accent"],
         fg=COLORS["text_light"],
         font=("Segoe UI", 10, "bold"),
-        border=0,
+        relief="solid",
+        bd=1,
         cursor="hand2",
         width=15
     )

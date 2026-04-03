@@ -3,6 +3,7 @@ import json
 import uuid
 #from utils.today import get_today_string
 from datetime import datetime
+from core.algorithm import merge_sort
 # DATA_FILE ennsuring build the correct path regardless of where Python is run from
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA_FILE = os.path.join(BASE_DIR, "data", "transactions.json") #this is a constant vaiable, it written in ALL_CAPS and we can not change this variable
@@ -77,7 +78,7 @@ def get_transaction(data,search_query=None,sort_by="time",ascending=False):
                 or search_query in transaction["category"].lower()
                 or search_query in str(transaction["amount"])
             ]
-    transactions = sorted(transactions, key = lambda x: x[sort_by], reverse= not ascending) # must 
+    transactions = merge_sort(transactions,sort_by, reverse= not ascending)
     return transactions
 # sort_by="time" by default make all transaction shows synchronously 
 # we will use list comprehension to build list as a compact way
@@ -114,3 +115,9 @@ def add_category(data,category):
 def get_categories(data):
     return data["categories"]
 #return categories list in data
+
+def remove_category(data,category):
+    if category in data["categories"]:
+        data["categories"].remove(category)
+        save_data(data)
+        

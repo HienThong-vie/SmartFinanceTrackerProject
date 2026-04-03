@@ -15,3 +15,14 @@ for budget in budgets:
 list_1 = ["noname1","noname2","noname3"]
 list_2 = ["name1","name2","name3"]
 
+lst = [10, 20, 30]
+
+for i in range(len(lst)):
+    print(i, lst[i])
+#output
+# 0 10
+# 1 20
+# 2 30
+
+test = ['10','20','30']
+print(len(test))

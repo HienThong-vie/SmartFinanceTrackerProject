@@ -7,11 +7,157 @@ from core.data_manager import (
     add_transaction,
     edit_transaction,
     delete_transaction,
+    get_budget,
     get_categories,
+    delete_budget,
     add_category,
-    save_data
+    save_data,
+    remove_category
 )
 def build_transactions_page(frame, data):
+    def open_category_popup():
+        def delete_category():
+            category  = remove_combobox.get()
+            budget = get_budget(data)
+
+            has_transactions = any(transaction["category"] ==  category for transaction in data["transactions"]) #any() will return boolean value
+            has_budget = category in budget
+            if category == "":
+                return
+            elif has_transactions or has_budget:
+                    def confirm_delete():
+                        data["transactions"] = [transaction for transaction in data["transactions"] if transaction["category"] != category] # only keep category that not be removed
+                        save_data(data)
+                        delete_budget(data,category)
+                        remove_category(data,category)
+                        remove_combobox.set("")
+                        remove_combobox.config(values=get_categories(data))
+                        warning_popup.destroy()
+                        refresh_table()
+                    warning_popup = tk.Toplevel(
+                        popup,
+                        bg=COLORS["bg_main"]
+                    )
+                    tk.Label(
+                        warning_popup,
+                        text=f"⚠️ Deleting '{category}' will also remove \n all related transactions and budget!",
+                        bg=COLORS["bg_main"],
+                        fg=COLORS["text_primary"],
+                        font=("Segoe UI", 10)
+                    ).pack(padx=20, pady=10)
+                    tk.Button(
+                        warning_popup,
+                        text="✅ Confirm Delete",
+                        command=confirm_delete,
+                        bg=COLORS["status_exceeded"],
+                        fg=COLORS["text_light"],
+                        font=("Segoe UI", 10, "bold"),
+                        relief="solid",
+                        bd=1,
+                        cursor="hand2",
+                        width=20
+                    ).pack(padx=20,pady=5)
+                    tk.Button(
+                        warning_popup,
+                        text="❌ Cancel",
+                        command=warning_popup.destroy,
+                        bg=COLORS["accent"],
+                        fg=COLORS["text_light"],
+                        font=("Segoe UI", 10, "bold"),
+                        relief="solid",
+                        bd=1,
+                        cursor="hand2",
+                        width=20
+                    ).pack(padx=20,pady=5)
+            else:
+                remove_category(data,category)
+                remove_combobox.set("")
+                remove_combobox.config(values=get_categories(data))
+        def save_category():
+            new_category = category_var.get().strip().lower()
+            if new_category == "":
+                return
+            else:
+                add_category(data,new_category)
+                category_combobox.config(values=get_categories(data))
+                save_data(data)
+                popup.destroy()
+        category_var = tk.StringVar()
+        category_var.set("")
+        popup = tk.Toplevel(
+            frame,
+            bg=COLORS["bg_main"],
+            )
+        popup.title("Add Category")
+        popup.resizable(False,False) 
+        tk.Label(
+            popup,
+            text="Category Name:",
+            bg=COLORS["bg_main"],
+            fg=COLORS["text_primary"],
+            font=("Segoe UI", 10)  
+            ).pack(padx=10,pady=5),
+        tk.Entry(
+            popup,
+            textvariable=category_var,
+        ).pack(padx=20,pady=10)
+        tk.Button(
+            popup,
+            text="✅ Save",
+            command=save_category,
+            bg=COLORS["accent"],
+            fg=COLORS["text_light"],
+            font=("Segoe UI", 10, "bold"),
+            relief="solid",
+            bd=1,
+            cursor="hand2",
+            width=20
+        ).pack(padx=20,pady=5)
+        tk.Frame(
+            popup,
+            height=2,
+            bg=COLORS["text_secondary"]
+        ).pack(padx=10,pady=5)
+        tk.Label(
+            popup,
+            text="Remove Category",
+            bg=COLORS["bg_main"],
+            fg=COLORS["text_primary"],
+            font=("Segoe UI", 10)
+        ).pack(padx=10,pady=5)
+        remove_combobox = ttk.Combobox(
+            popup,
+            values=get_categories(data),
+            state="readonly"
+        )
+        remove_combobox.pack(padx=20,pady=10)
+        tk.Button(
+            popup,
+            text="🗑️ Remove",
+            command= delete_category,
+            bg=COLORS["status_exceeded"],
+            fg=COLORS["text_light"],
+            font=("Segoe UI", 10, "bold"),
+            relief="solid",
+            bd=1,
+            cursor="hand2",
+            width=20
+        ).pack(padx=20,pady=5)
+        tk.Button(
+            popup,
+            text="❌ Cancel",
+            command= popup.destroy,
+            bg=COLORS["bg_sidebar"],
+            fg=COLORS["text_light"],
+            font=("Segoe UI", 10, "bold"),
+            relief="solid",
+            bd=1,
+            cursor="hand2",
+            width=10
+            ).pack(padx=20,pady=20)
+        popup.grab_set() #can only interact with the popup
+        
+
     def search_and_sort():
         search_item = search_var.get().lower()
         sort_item = sort_combobox.get()
@@ -183,14 +329,30 @@ def build_transactions_page(frame, data):
     note_entry = tk.Entry(
         form_frame,
     )
+    sub_add_frame = tk.Frame(
+        form_frame,
+        bg=COLORS["bg_main"]
+    )
     name_var = tk.StringVar()
     edit_id = tk.StringVar()
     edit_id.set("")
-    name_var.set("➕ Add Transaction")
+    name_var.set("Add Transaction")
     submit_button = tk.Button(
-        form_frame,
+        sub_add_frame,
         command=submit_transaction,
         textvariable=name_var,
+        bg=COLORS["accent"],
+        fg=COLORS["text_light"],
+        font=("Segoe UI", 10, "bold"),
+        relief="solid",
+        bd=1,
+        cursor="hand2",
+        width=20
+    )
+    add_category_button = tk.Button(
+        sub_add_frame,
+        command=open_category_popup,
+        text = "Edit Category",
         bg=COLORS["accent"],
         fg=COLORS["text_light"],
         font=("Segoe UI", 10, "bold"),
@@ -219,14 +381,13 @@ def build_transactions_page(frame, data):
     edit_button = tk.Button(
         controls_frame,
         command=edit_selected,
-        text = "✏️ Edit",
+        text = "✏️ Edit Transactions",
         bg=COLORS["accent"],
         fg=COLORS["text_light"],
         font=("Segoe UI", 10,"bold"),
         relief="solid",
         bd=1,
         cursor="hand2",
-        width=7
     )
     #done controls frame
     search_frame = tk.Frame(
@@ -260,6 +421,7 @@ def build_transactions_page(frame, data):
         values = ["Date","Amount","Category","Type"],
         state="readonly"
     )
+    sort_combobox.set("Date")
     #done search frame
     history_frame = tk.LabelFrame(
         frame,
@@ -278,6 +440,7 @@ def build_transactions_page(frame, data):
         command=transaction_history.yview,
         orient="vertical"
     )
+    #done transaction history frame
     #ttk widget need style() to styling them
     style = ttk.Style()
     style.configure("Treeview",rowheight=50,font=("Segoe UI", 10))
@@ -301,7 +464,7 @@ def build_transactions_page(frame, data):
     # transaction frame section
     page_title.pack(anchor="w",padx=20,pady=15)
     form_frame.pack(fill="x", padx=20, pady=10) # we dont add fill both here because this frame have fixed height created by all the widget inside this frame
-
+    
     amount_label.grid(row=0, column=0, sticky="w",pady=5)
     amount_entry.grid(row=0, column=1, sticky="ew",padx=20,pady=5)
 
@@ -317,7 +480,9 @@ def build_transactions_page(frame, data):
     note_label.grid(row=4, column=0, sticky="w",pady=5)
     note_entry.grid(row=4, column=1, sticky="ew",padx=20,pady=5)
 
-    submit_button.grid(row=5, column=1,sticky="e",pady=10)
+    sub_add_frame.grid(row=5,column=1,sticky="ew",padx=20,pady=10)
+    submit_button.pack(side="right",padx=5)
+    add_category_button.pack(side="right",padx=5)
 
     form_frame.columnconfigure(1, weight=1)
     # controls frame section
@@ -325,7 +490,7 @@ def build_transactions_page(frame, data):
     delete_button.pack(side="right",padx=5)
     edit_button.pack(side="right",padx=5)
     # search frame section
-    search_frame.pack(fill="x",padx=20,pady=10)
+    search_frame.pack(fill="x",padx=10,pady=10)
     search_label.pack(side="left",fill="x")
     search_bar.pack(side="left",fill="x",expand=True,padx=10)
     sort_label.pack(side="left",fill="x")
