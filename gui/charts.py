@@ -34,8 +34,7 @@ def build_chart_page(frame,data):
             show_donut()
         else:
             show_bar()
-
-        
+            
     def get_filtered_transactions():
         result = []
         today = datetime.now()
