@@ -6,11 +6,13 @@ from gui.dashboard import build_dashboard_page
 from gui.budget import build_budget_page
 from gui.advisor import build_advisor_page
 from gui.charts import build_chart_page
-from ctypes import windll
-try:
-    windll.shcore.SetProcessDpiAwareness(1)
-except:
-    pass
+import sys
+if sys.platform == "win32":
+    try:
+        from ctypes import windll
+        windll.shcore.SetProcessDpiAwareness(1)
+    except AttributeError:
+        pass
 
 def show_frame(frame,rebuild=None):
     frame.tkraise()
