@@ -1,278 +1,294 @@
 {
-  "transactions": [
-    {
-      "id": "t1",
-      "time": "2026-04-01",
-      "amount": 1200,
-      "type": "income",
-      "note": "salary",
-      "category": "salary"
+    "transactions": [
+        {
+            "id": "t1",
+            "time": "2026-04-01",
+            "amount": 1200,
+            "type": "income",
+            "note": "salary",
+            "category": "salary"
+        },
+        {
+            "id": "t2",
+            "time": "2026-04-02",
+            "amount": 150,
+            "type": "expense",
+            "note": "groceries",
+            "category": "food"
+        },
+        {
+            "id": "t3",
+            "time": "2026-04-02",
+            "amount": 80,
+            "type": "expense",
+            "note": "bus card",
+            "category": "transport"
+        },
+        {
+            "id": "t4",
+            "time": "2022-04-03",
+            "amount": 50,
+            "type": "expense",
+            "note": "netflix",
+            "category": "subscription"
+        },
+        {
+            "id": "t5",
+            "time": "2026-02-03",
+            "amount": 50,
+            "type": "expense",
+            "note": "new shirt",
+            "category": "shopping"
+        },
+        {
+            "id": "t6",
+            "time": "2026-04-04",
+            "amount": 320,
+            "type": "expense",
+            "note": "dinner out",
+            "category": "food"
+        },
+        {
+            "id": "t7",
+            "time": "2026-04-04",
+            "amount": 120,
+            "type": "expense",
+            "note": "grab ride",
+            "category": "transport"
+        },
+        {
+            "id": "t8",
+            "time": "2023-09-05",
+            "amount": 500,
+            "type": "income",
+            "note": "freelance project",
+            "category": "freelance"
+        },
+        {
+            "id": "t9",
+            "time": "2026-04-05",
+            "amount": 60,
+            "type": "expense",
+            "note": "spotify",
+            "category": "subscription"
+        },
+        {
+            "id": "t10",
+            "time": "2025-02-12",
+            "amount": 180,
+            "type": "expense",
+            "note": "gym fee",
+            "category": "health"
+        },
+        {
+            "id": "t11",
+            "time": "2026-04-06",
+            "amount": 90,
+            "type": "expense",
+            "note": "coffee",
+            "category": "food"
+        },
+        {
+            "id": "t12",
+            "time": "2026-04-07",
+            "amount": 220,
+            "type": "expense",
+            "note": "online shopping",
+            "category": "shopping"
+        },
+        {
+            "id": "t13",
+            "time": "2026-04-07",
+            "amount": 70,
+            "type": "expense",
+            "note": "fuel",
+            "category": "transport"
+        },
+        {
+            "id": "t14",
+            "time": "2023-07-08",
+            "amount": 400,
+            "type": "expense",
+            "note": "gaming gear",
+            "category": "entertainment"
+        },
+        {
+            "id": "t15",
+            "time": "2026-01-08",
+            "amount": 600,
+            "type": "income",
+            "note": "movie",
+            "category": "entertainment"
+        },
+        {
+            "id": "t16",
+            "time": "2026-02-11",
+            "amount": 250,
+            "type": "expense",
+            "note": "doctor visit",
+            "category": "health"
+        },
+        {
+            "id": "t17",
+            "time": "2024-02-09",
+            "amount": 130,
+            "type": "expense",
+            "note": "lunch",
+            "category": "food"
+        },
+        {
+            "id": "t18",
+            "time": "2024-04-10",
+            "amount": 1000,
+            "type": "income",
+            "note": "bonus",
+            "category": "salary"
+        },
+        {
+            "id": "t19",
+            "time": "2024-04-10",
+            "amount": 110,
+            "type": "expense",
+            "note": "taxi",
+            "category": "transport"
+        },
+        {
+            "id": "t20",
+            "time": "2026-03-11",
+            "amount": 75,
+            "type": "expense",
+            "note": "snacks",
+            "category": "food"
+        },
+        {
+            "id": "t21",
+            "time": "2025-03-11",
+            "amount": 130,
+            "type": "expense",
+            "note": "new shoes",
+            "category": "shopping"
+        },
+        {
+            "id": "t22",
+            "time": "2025-04-11",
+            "amount": 200,
+            "type": "expense",
+            "note": "concert",
+            "category": "entertainment"
+        },
+        {
+            "id": "t23",
+            "time": "2026-01-12",
+            "amount": 90,
+            "type": "expense",
+            "note": "bus",
+            "category": "transport"
+        },
+        {
+            "id": "t24",
+            "time": "2026-01-12",
+            "amount": 140,
+            "type": "expense",
+            "note": "groceries",
+            "category": "food"
+        },
+        {
+            "id": "t25",
+            "time": "2026-02-13",
+            "amount": 600,
+            "type": "income",
+            "note": "side hustle",
+            "category": "freelance"
+        },
+        {
+            "id": "t26",
+            "time": "2026-02-13",
+            "amount": 120,
+            "type": "expense",
+            "note": "pharmacy",
+            "category": "health"
+        },
+        {
+            "id": "t27",
+            "time": "2026-03-14",
+            "amount": 50,
+            "type": "expense",
+            "note": "netflix",
+            "category": "subscription"
+        },
+        {
+            "id": "t28",
+            "time": "2026-03-14",
+            "amount": 180,
+            "type": "expense",
+            "note": "dinner",
+            "category": "food"
+        },
+        {
+            "id": "t29",
+            "time": "2026-04-15",
+            "amount": 50,
+            "type": "expense",
+            "note": "shopping mall",
+            "category": "shopping"
+        },
+        {
+            "id": "t30",
+            "time": "2026-04-15",
+            "amount": 100,
+            "type": "expense",
+            "note": "uber",
+            "category": "transport"
+        },
+        {
+            "id": "e2fbdd08-166c-42a7-b528-75317dbea065",
+            "time": "2026-04-11",
+            "amount": 380,
+            "type": "expense",
+            "note": "hide my family to buy playstation 5",
+            "category": "entertainment"
+        }
+    ],
+    "budgets": {
+        "transport": {
+            "limit": 300.0,
+            "period": "week",
+            "start_date": "2026-04-01"
+        },
+        "food": {
+            "limit": 800.0,
+            "period": "month",
+            "start_date": "2026-04-01"
+        },
+        "shopping": {
+            "limit": 500.0,
+            "period": "month",
+            "start_date": "2026-04-01"
+        },
+        "entertainment": {
+            "limit": 400.0,
+            "period": "month",
+            "start_date": "2026-04-01"
+        },
+        "health": {
+            "limit": 300.0,
+            "period": "month",
+            "start_date": "2026-04-01"
+        },
+        "subscription": {
+            "limit": 100.0,
+            "period": "month",
+            "start_date": "2026-04-01"
+        }
     },
-    {
-      "id": "t2",
-      "time": "2026-04-02",
-      "amount": 150,
-      "type": "expense",
-      "note": "groceries",
-      "category": "food"
-    },
-    {
-      "id": "t3",
-      "time": "2026-04-02",
-      "amount": 80,
-      "type": "expense",
-      "note": "bus card",
-      "category": "transport"
-    },
-    {
-      "id": "t4",
-      "time": "2026-04-03",
-      "amount": 50,
-      "type": "expense",
-      "note": "netflix",
-      "category": "subscription"
-    },
-    {
-      "id": "t5",
-      "time": "2026-04-03",
-      "amount": 200,
-      "type": "expense",
-      "note": "new shirt",
-      "category": "shopping"
-    },
-    {
-      "id": "t6",
-      "time": "2026-04-04",
-      "amount": 300,
-      "type": "expense",
-      "note": "dinner out",
-      "category": "food"
-    },
-    {
-      "id": "t7",
-      "time": "2026-04-04",
-      "amount": 120,
-      "type": "expense",
-      "note": "grab ride",
-      "category": "transport"
-    },
-    {
-      "id": "t8",
-      "time": "2026-04-05",
-      "amount": 500,
-      "type": "income",
-      "note": "freelance project",
-      "category": "freelance"
-    },
-    {
-      "id": "t9",
-      "time": "2026-04-05",
-      "amount": 60,
-      "type": "expense",
-      "note": "spotify",
-      "category": "subscription"
-    },
-    {
-      "id": "t10",
-      "time": "2026-04-06",
-      "amount": 180,
-      "type": "expense",
-      "note": "gym fee",
-      "category": "health"
-    },
-    {
-      "id": "t11",
-      "time": "2026-04-06",
-      "amount": 90,
-      "type": "expense",
-      "note": "coffee",
-      "category": "food"
-    },
-    {
-      "id": "t12",
-      "time": "2026-04-07",
-      "amount": 220,
-      "type": "expense",
-      "note": "online shopping",
-      "category": "shopping"
-    },
-    {
-      "id": "t13",
-      "time": "2026-04-07",
-      "amount": 70,
-      "type": "expense",
-      "note": "fuel",
-      "category": "transport"
-    },
-    {
-      "id": "t14",
-      "time": "2026-04-08",
-      "amount": 400,
-      "type": "expense",
-      "note": "gaming gear",
-      "category": "entertainment"
-    },
-    {
-      "id": "t15",
-      "time": "2026-04-08",
-      "amount": 100,
-      "type": "expense",
-      "note": "movie",
-      "category": "entertainment"
-    },
-    {
-      "id": "t16",
-      "time": "2026-04-09",
-      "amount": 250,
-      "type": "expense",
-      "note": "doctor visit",
-      "category": "health"
-    },
-    {
-      "id": "t17",
-      "time": "2026-04-09",
-      "amount": 130,
-      "type": "expense",
-      "note": "lunch",
-      "category": "food"
-    },
-    {
-      "id": "t18",
-      "time": "2026-04-10",
-      "amount": 1000,
-      "type": "income",
-      "note": "bonus",
-      "category": "salary"
-    },
-    {
-      "id": "t19",
-      "time": "2026-04-10",
-      "amount": 110,
-      "type": "expense",
-      "note": "taxi",
-      "category": "transport"
-    },
-    {
-      "id": "t20",
-      "time": "2026-04-10",
-      "amount": 75,
-      "type": "expense",
-      "note": "snacks",
-      "category": "food"
-    },
-    {
-      "id": "t21",
-      "time": "2026-04-11",
-      "amount": 300,
-      "type": "expense",
-      "note": "new shoes",
-      "category": "shopping"
-    },
-    {
-      "id": "t22",
-      "time": "2026-04-11",
-      "amount": 200,
-      "type": "expense",
-      "note": "concert",
-      "category": "entertainment"
-    },
-    {
-      "id": "t23",
-      "time": "2026-04-12",
-      "amount": 90,
-      "type": "expense",
-      "note": "bus",
-      "category": "transport"
-    },
-    {
-      "id": "t24",
-      "time": "2026-04-12",
-      "amount": 140,
-      "type": "expense",
-      "note": "groceries",
-      "category": "food"
-    },
-    {
-      "id": "t25",
-      "time": "2026-04-13",
-      "amount": 600,
-      "type": "income",
-      "note": "side hustle",
-      "category": "freelance"
-    },
-    {
-      "id": "t26",
-      "time": "2026-04-13",
-      "amount": 120,
-      "type": "expense",
-      "note": "pharmacy",
-      "category": "health"
-    },
-    {
-      "id": "t27",
-      "time": "2026-04-14",
-      "amount": 50,
-      "type": "expense",
-      "note": "netflix",
-      "category": "subscription"
-    },
-    {
-      "id": "t28",
-      "time": "2026-04-14",
-      "amount": 180,
-      "type": "expense",
-      "note": "dinner",
-      "category": "food"
-    },
-    {
-      "id": "t29",
-      "time": "2026-04-15",
-      "amount": 250,
-      "type": "expense",
-      "note": "shopping mall",
-      "category": "shopping"
-    },
-    {
-      "id": "t30",
-      "time": "2026-04-15",
-      "amount": 100,
-      "type": "expense",
-      "note": "uber",
-      "category": "transport"
-    }
-  ],
-  "budgets": {
-    "transport": {
-      "limit": 300.0,
-      "period": "week",
-      "start_date": "2026-04-01"
-    },
-    "food": { "limit": 800.0, "period": "month", "start_date": "2026-04-01" },
-    "shopping": {
-      "limit": 500.0,
-      "period": "month",
-      "start_date": "2026-04-01"
-    },
-    "entertainment": {
-      "limit": 400.0,
-      "period": "month",
-      "start_date": "2026-04-01"
-    },
-    "health": { "limit": 300.0, "period": "month", "start_date": "2026-04-01" },
-    "subscription": {
-      "limit": 100.0,
-      "period": "month",
-      "start_date": "2026-04-01"
-    }
-  },
-  "categories": [
-    "salary",
-    "freelance",
-    "transport",
-    "food",
-    "subscription",
-    "shopping",
-    "entertainment",
-    "health"
-  ]
+    "categories": [
+        "salary",
+        "freelance",
+        "transport",
+        "food",
+        "subscription",
+        "shopping",
+        "entertainment",
+        "health"
+    ]
 }

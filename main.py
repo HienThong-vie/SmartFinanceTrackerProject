@@ -40,7 +40,6 @@ def main():
     budget_frame = tk.Frame(
         content_frame,
         bg = COLORS["bg_main"]
-        
     )
     charts_frame = tk.Frame(
         content_frame,

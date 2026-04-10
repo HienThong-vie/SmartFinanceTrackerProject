@@ -242,6 +242,8 @@ def build_transactions_page(frame, data):
         
         if current_id:
             edit_transaction(data,current_id,updated_field)
+            date_entry.delete(0,tk.END)
+            date_entry.insert(0,datetime.now().strftime("%Y-%m-%d"))
         else:
             add_transaction(data,amount,type,category,note)
 
@@ -266,7 +268,7 @@ def build_transactions_page(frame, data):
     )
     form_frame = tk.LabelFrame( # LabelFrame create a form with visible border
         frame,
-        text="ADD TRANSACTION",
+        text="➕ ADD TRANSACTION",
         bg=COLORS["bg_main"],
         fg=COLORS["text_secondary"],
         font=("Segoe UI", 10, "bold"),
@@ -336,7 +338,7 @@ def build_transactions_page(frame, data):
     name_var = tk.StringVar()
     edit_id = tk.StringVar()
     edit_id.set("")
-    name_var.set("Add Transaction")
+    name_var.set("➕ Add Transaction")
     submit_button = tk.Button(
         sub_add_frame,
         command=submit_transaction,
@@ -352,7 +354,7 @@ def build_transactions_page(frame, data):
     add_category_button = tk.Button(
         sub_add_frame,
         command=open_category_popup,
-        text = "Edit Category",
+        text = "✏️ Edit Category",
         bg=COLORS["accent"],
         fg=COLORS["text_light"],
         font=("Segoe UI", 10, "bold"),

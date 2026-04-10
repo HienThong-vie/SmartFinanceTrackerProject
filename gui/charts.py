@@ -214,6 +214,7 @@ def build_chart_page(frame,data):
             ax.axis("equal")
             for text in autotexts:
                 text.set_fontsize(9)
+                text.set_fontweight("semibold")
             #setting donut inside the page      
             canvas = FigureCanvasTkAgg(fig, master=donut_frame) # master means the parent frame we place this canvas
             canvas.draw()
@@ -233,7 +234,9 @@ def build_chart_page(frame,data):
                     monthly[month] = {"income": 0, "expense": 0}
                 monthly[month][transaction["type"]] += transaction["amount"]
             # sort by month 
-            monthly = dict(merge_sort(monthly.items()))
+            monthly_list = list(monthly.items())
+            monthly_list = merge_sort(monthly_list,key=0)
+            monthly = dict(monthly_list)
 
             fig, ax = plt.subplots(figsize=(8, 5))
             months = []
@@ -243,19 +246,23 @@ def build_chart_page(frame,data):
                 months.append(month)
                 income_totals.append(monthly[month]["income"])
                 expense_totals.append(monthly[month]["expense"])      
-        
+
             x = np.arange(len(months)) # x asix positioned by each month
             width = 0.35 # width for each bar
 
             #side by side bars 
-            income_bars = ax.bar(x - width/2, income_totals, width, label="Income", color=COLORS["status_acceptable"])
-            expense_bars = ax.bar(x + width/2, expense_totals, width, label="Expense", color=COLORS["status_exceeded"])
+            ax.bar(x - width/2, income_totals, width, label="Income", color=COLORS["status_acceptable"]) #income bar
+            ax.bar(x + width/2, expense_totals, width, label="Expense", color=COLORS["status_exceeded"]) #expense bar
 
-            ax.set_xticks(x)
-            ax.set_xticklabels(months)
+            ax.set_xticks(x) 
+            if current_filter[0] == ("all"):
+                ax.set_xticklabels(months, fontsize=6)
+            else:
+                ax.set_xticklabels(months)
+    
             ax.legend()
             ax.set_title("Monthly Income vs Expense")
-            #set transparent background
+            #set transparent background    
             fig.patch.set_facecolor(COLORS["bg_main"])
             ax.set_facecolor(COLORS["bg_main"])
             #setting bar chart inside charts page
