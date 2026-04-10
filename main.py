@@ -26,7 +26,6 @@ def main():
 
     root.title("Smart Finance Tracker")
 
-    #creating widgets is like buying furniture 
     content_frame = tk.Frame(
         root,
         bg = COLORS["bg_main"]

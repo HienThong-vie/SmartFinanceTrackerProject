@@ -34,7 +34,6 @@ def save_data(data):
 
 def add_transaction(data,amount,transaction_type,category,note):
     transaction_id = str(uuid.uuid4())
-    #today = get_today_string()
 
     new_transaction = {
         "id":transaction_id,
