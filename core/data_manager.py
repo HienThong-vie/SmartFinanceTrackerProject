@@ -4,9 +4,9 @@ import uuid
 #from utils.today import get_today_string
 from datetime import datetime
 from core.algorithm import merge_sort
-# DATA_FILE ennsuring build the correct path regardless of where Python is run from
+# DATA_FILE ensures build the correct path regardless of where Python is run from
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-DATA_FILE = os.path.join(BASE_DIR, "data", "transactions.json") #this is a constant vaiable, it written in ALL_CAPS and we can not change this variable
+DATA_FILE = os.path.join(BASE_DIR, "data", "transactions.json") 
 def load_data(): 
     if os.path.exists(DATA_FILE):
         with open(DATA_FILE, "r") as data_file:

@@ -86,7 +86,7 @@ def generate_advice(data):
         else:
             advices.append(f"✅ Great job! You are on track with {result}.")
     return advices
-# NEED FURTHER INVESTIGATION
+
 def merge(left,right,key,reverse=False):
     result = []
     i = 0
