@@ -197,10 +197,18 @@ def build_chart_page(frame,data):
                 return f"{pct:.1f}%" if pct >= 5 else "" #only appear category greater than 3 or else: returns empty string
             wedges, texts, autotexts = ax.pie(
             sizes,
-            labels=labels,
+            labels=None,
             autopct=autopct_format,
             wedgeprops=dict(width=0.6),
             pctdistance=0.75,
+            )
+            ax.legend(
+                wedges,
+                labels,
+                title="Categories",
+                loc="lower left",          
+                bbox_to_anchor=(-0.1,-0.1),   
+                fontsize=9
             )
             ax.set_title("Spending by Category",pad=20,fontweight="bold")
             ax.axis("equal")

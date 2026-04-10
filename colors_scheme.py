@@ -14,7 +14,7 @@ COLORS = {
     "text_light":     "#ffffff",  # white (text on dark bg)
     
     # Status colors
-    "status_acceptable": "#7fe395",  # soft green
+    "status_acceptable": "#7fe395",  # green
     "status_caution": "#f8e6a8", # soft yellow
     "status_warning":  "#f59163",  # orange
     "status_exceeded": "#ee4343",  # soft red

@@ -25,7 +25,6 @@ def main():
     root.minsize(1800,1200)
 
     root.title("Smart Finance Tracker")
-
     content_frame = tk.Frame(
         root,
         bg = COLORS["bg_main"]
