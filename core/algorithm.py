@@ -9,42 +9,37 @@ def get_spending_by_category(transactions, budgets):
                 spending[category] = 0
             spending[category] += transaction["amount"]
     return spending
-# the first if condition check it the transaction type is expense and is there a category of this transaction inside budgets
-# dont add break for this loop because we want to loop through all the transactions not one
+
 
 def get_period_transaction(transactions, budget, category):
     period = budget[category]["period"]
     today = datetime.now()
-    #get monday of the current week 
     if period == "week":
         period_start = today - timedelta(days=today.weekday())
-    #get the first day of the current month
     elif period == "month":
         period_start = today.replace(day=1)
     transactions = [
         transaction for transaction in transactions
         if transaction["category"] == category
         and transaction["type"] == "expense"
-        and datetime.strptime(transaction["time"], "%Y-%m-%d").date() >= period_start.date() #.date() filter the time componentas
+        and datetime.strptime(transaction["time"], "%Y-%m-%d").date() >= period_start.date()
     ]
     return transactions
-# This function filters transactions to only those within the current budget period for a specific category.
-# the date is only comparable in %Y-%m-%d format
-# the transaction date must be greater or equal to start_day because we dont count days before we start tracking expense
+
 
 def analyze_budgets(data):
     result = {}
     transactions = data["transactions"]
     budgets = data["budgets"]
     
-    for budget in budgets: # this loop should return category string inside budgets
+    for budget in budgets: 
         period_transactions = get_period_transaction(transactions,budgets,budget)
         spending = get_spending_by_category(period_transactions,budget)
-        spent = spending.get(budget,0) # get is a dict method parameter_of_get(get_what,return 0)
+        spent = spending.get(budget,0) 
         limit = budgets[budget]["limit"]
         status = None
         if limit == 0:
-            continue #break or return here is not suitable since it would continue running the remaining code
+            continue 
         else:
             remaining = int(limit) - int(spent)
             used_percentage = ((int(spent)/limit) * 100) 
@@ -105,14 +100,13 @@ def merge(left,right,key,reverse=False):
     return result       
 
 def merge_sort(list,key=None,reverse=False):
-    if len(list) <= 1: # validate len(list)
+    if len(list) <= 1: 
         return list
     else:
-        mid = len(list) // 2 # split the list in half
-    # divide into left and right section 
+        mid = len(list) 
     left_section = []
     right_section = []
-    for i in range(len(list)): #check test.py for the example
+    for i in range(len(list)):
         if i < mid:
             left_section.append(list[i])
         else:

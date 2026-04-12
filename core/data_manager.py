@@ -74,7 +74,7 @@ def get_transaction(data,search_query=None,sort_by="time",ascending=False):
                 or search_query in str(transaction["amount"])
             ]
     transactions = merge_sort(transactions,sort_by, reverse= not ascending)
-    return transactions
+    return
 
 
 def add_budget(data,category,limit,period):
