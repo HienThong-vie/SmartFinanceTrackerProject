@@ -110,13 +110,6 @@ def main():
         # explaination for this bind() section is in the document 
     build_transactions_page(transactions_frame,data)
 
-    #close shortcut
-    
-    def close_program(event=None):
-        root.destroy()
-
-    root.bind("<Control-e>",close_program)
-
     root.mainloop() 
 if __name__ == "__main__":
     main()
